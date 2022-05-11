@@ -1,16 +1,17 @@
 
 import * as express from 'express';
-import {Application} from "express";
-import {readAllLessons} from "./read-all-lessons.route";
-import {addPushSubscriber} from "./add-push-subscriber.route";
-import {sendNewsletter} from "./send-newsletter.route";
+import { Application } from "express";
+import { readAllLessons } from "./read-all-lessons.route";
+import { addPushSubscriber } from "./add-push-subscriber.route";
+import { sendNewsletter } from "./send-newsletter.route";
+import { AddressInfo } from 'net';
 const bodyParser = require('body-parser');
 
 const webpush = require('web-push');
 
 const vapidKeys = {
-    "publicKey":"BLnVk1MBGFBW4UxL44fuoM2xxQ4o9CuxocVzKn9UVmnXZEyPCTEFjI4sALMB8qN5ee67yZ6MeQWjd5iyS8lINAg",
-    "privateKey":"mp5xYHWtRTyCA63nZMvmJ_qmYO6A1klSotcoppSx-MI"
+    "publicKey": "BLnVk1MBGFBW4UxL44fuoM2xxQ4o9CuxocVzKn9UVmnXZEyPCTEFjI4sALMB8qN5ee67yZ6MeQWjd5iyS8lINAg",
+    "privateKey": "mp5xYHWtRTyCA63nZMvmJ_qmYO6A1klSotcoppSx-MI"
 };
 
 
@@ -43,7 +44,7 @@ app.route('/api/newsletter')
 
 // launch an HTTP Server
 const httpServer = app.listen(9000, () => {
-    console.log("HTTP Server running at http://localhost:" + httpServer.address().port);
+    console.log("HTTP Server running at http://localhost:" + (httpServer.address() as AddressInfo).port);
 });
 
 
