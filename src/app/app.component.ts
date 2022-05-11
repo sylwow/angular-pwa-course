@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {SwPush, SwUpdate} from "@angular/service-worker";
+import { Component, OnInit } from '@angular/core';
+import { SwPush, SwUpdate } from "@angular/service-worker";
 
 
 @Component({
@@ -7,18 +7,22 @@ import {SwPush, SwUpdate} from "@angular/service-worker";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent  implements OnInit {
+export class AppComponent implements OnInit {
 
 
-    constructor() {
+  constructor(private swUpdate: SwUpdate) {
 
+  }
+
+  ngOnInit() {
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.available.subscribe(available => {
+        if (confirm('New version of app is available, load new version?')) {
+          window.location.reload();
+        }
+      })
     }
-
-    ngOnInit() {
-
-
-
-    }
+  }
 
 }
 
