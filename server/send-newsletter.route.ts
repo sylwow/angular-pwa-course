@@ -1,15 +1,11 @@
-import {USER_SUBSCRIPTIONS} from "./in-memory-db";
+import { USER_SUBSCRIPTIONS } from "./in-memory-db";
 
 const webpush = require('web-push');
 
 
-export function sendNewsletter(req, res) {
+export async function sendNewsletter(req, res) {
 
     console.log('Total subscriptions', USER_SUBSCRIPTIONS.length);
-
-
-    // sample notification payload
-/*
 
     const notificationPayload = {
         "notification": {
@@ -18,7 +14,7 @@ export function sendNewsletter(req, res) {
             "icon": "assets/main-page-logo-small-hat.png",
             "vibrate": [100, 50, 100],
             "data": {
-                "dateOfArrival": 1515496004613,
+                "dateOfArrival": Date.now(),
                 "primaryKey": 1
             },
             "actions": [{
@@ -28,10 +24,15 @@ export function sendNewsletter(req, res) {
         }
     };
 
+    try {
 
-    */
-
-    //TODO
-
+        await Promise.all(USER_SUBSCRIPTIONS.map(sub =>
+            webpush.sendNotification(sub, JSON.stringify(notificationPayload))
+        ));
+        res.status(200).json({ message: "sended notification successfully" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "failed to send notification" });
+    }
 }
 

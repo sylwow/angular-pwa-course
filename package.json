@@ -35,7 +35,7 @@
     "nodemon": "^1.19.1",
     "rxjs": "^6.5.4",
     "tslib": "^1.10.0",
-    "web-push": "^3.2.5",
+    "web-push": "^3.5.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

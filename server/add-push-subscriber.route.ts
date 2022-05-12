@@ -1,7 +1,7 @@
 
 
 
-import {USER_SUBSCRIPTIONS} from "./in-memory-db";
+import { USER_SUBSCRIPTIONS } from "./in-memory-db";
 
 
 
@@ -13,6 +13,6 @@ export function addPushSubscriber(req, res) {
 
     USER_SUBSCRIPTIONS.push(sub);
 
-    res.status(200).json({message: "Subscription added successfully."});
+    res.status(200).json({ message: "Subscription added successfully." });
 }
 
